@@ -12,7 +12,7 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
     
     @IBOutlet weak var imageView: UIImageView!
     
-    // @IBOutlet weak var imageViewControllerz: UIImageView!
+    @IBOutlet weak var rotateImageButton: UIBarButtonItem!
     
     @IBOutlet weak var saveNewImageButton: UIBarButtonItem!
     
@@ -21,11 +21,37 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
     // Create place to render
     let context = CIContext(options: nil)
     
+    var rotations: CGFloat = 0.0
+    var imageSize = CGSize (width: 0,height: 0)
+    var imageOrientation: UIImageOrientation = UIImageOrientation(rawValue: 0)!
+    
     @IBAction func openImage(sender: AnyObject) {
         imagePicker.allowsEditing = false
         imagePicker.sourceType = .PhotoLibrary
         
         presentViewController(imagePicker, animated: true, completion: nil)
+    }
+    
+    @IBAction func rotateImage(sender: AnyObject) {
+        rotations += 90.0
+        let rotate = CGAffineTransformMakeRotation((rotations * CGFloat(M_PI)) / 180.0)
+        var scale = CGAffineTransformMakeScale(1, 1)
+        if rotations % 180 > 0 {
+            switch imageOrientation {
+            case .Up:
+                scale = CGAffineTransformMakeScale(imageSize.width/imageSize.height, imageSize.width/imageSize.height)
+            case .Down:
+                scale = CGAffineTransformMakeScale(imageSize.width/imageSize.height, imageSize.width/imageSize.height)
+            default:
+                if (imageSize.height > imageSize.width) {
+                    scale = CGAffineTransformMakeScale(imageSize.height/imageSize.width, imageSize.height/imageSize.width)
+                } else {
+                    scale = CGAffineTransformMakeScale(imageSize.width/imageSize.height, imageSize.width/imageSize.height)
+                }
+                print ("Image not UP upon rotation")
+            }
+        }
+        imageView.transform = CGAffineTransformConcat(rotate, scale)
     }
     
     @IBAction func saveNewImage(sender: AnyObject) {
@@ -39,6 +65,7 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
                 selectorToCall,
                 nil)
         }
+        saveNewImageButton.enabled = false
     }
     
     func imageWasSavedSuccessfully(image: UIImage,
@@ -79,14 +106,32 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
         didFinishPickingMediaWithInfo info: [String : AnyObject])
     {
         let chosenImage = info[UIImagePickerControllerOriginalImage] as! UIImage //2
+        imageSize = chosenImage.size
         
-/*        // reset the imageview to size of image
-        let rect = CGRect(
-            origin: CGPoint(x: 0, y: 0),
-            size: chosenImage.size
-        )
-        imageView.bounds = rect
-*/
+        imageOrientation = chosenImage.imageOrientation
+        imageView.transform = CGAffineTransformMakeScale(1, 1)
+        
+        switch chosenImage.imageOrientation {
+        case .Up:
+            print("Up")
+        case .Down:
+            print("Down")
+        case .Left:
+            print("Left")
+        case .Right:
+            print("Right")
+        case .UpMirrored:
+            print("UpMirrored")
+        case .DownMirrored:
+            print("DownMirrored")
+        case .LeftMirrored:
+            print("LeftMirrored")
+        case .RightMirrored:
+            print("RightMirrored")
+        default:
+            print("Unknown orientation")
+        }
+        
         imageView.contentMode = .ScaleAspectFit //3
         imageView.image = chosenImage //4
         print ("Picked an image")
@@ -94,6 +139,7 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
         invertImage()
         print ("Inverted the image")
         saveNewImageButton.enabled = true
+        rotateImageButton.enabled = true
     }
 
     override func viewDidAppear(animated: Bool) {

@@ -22,6 +22,7 @@
                                 <color key="backgroundColor" red="0.40000000600000002" green="0.40000000600000002" blue="0.40000000600000002" alpha="1" colorSpace="calibratedRGB"/>
                             </imageView>
                         </subviews>
+                        <color key="backgroundColor" red="0.40000000600000002" green="0.40000000600000002" blue="0.40000000600000002" alpha="1" colorSpace="calibratedRGB"/>
                         <constraints>
                             <constraint firstItem="sBl-X4-UdC" firstAttribute="bottom" secondItem="wfy-db-euE" secondAttribute="top" id="1aU-Qn-G9D"/>
                             <constraint firstItem="sBl-X4-UdC" firstAttribute="top" secondItem="y3c-jy-aDJ" secondAttribute="bottom" id="JmR-dm-XRs"/>
@@ -36,6 +37,12 @@
                             </connections>
                         </barButtonItem>
                         <barButtonItem style="plain" systemItem="flexibleSpace" id="vex-I5-FGW"/>
+                        <barButtonItem enabled="NO" title="↻" id="xDw-nG-RwX">
+                            <connections>
+                                <action selector="rotateImage:" destination="BYZ-38-t0r" id="Hkp-pQ-WZy"/>
+                            </connections>
+                        </barButtonItem>
+                        <barButtonItem style="plain" systemItem="flexibleSpace" id="71u-iA-kkG"/>
                         <barButtonItem enabled="NO" title="Save as New Image" id="B7M-NM-Ff3">
                             <connections>
                                 <action selector="saveNewImage:" destination="BYZ-38-t0r" id="x88-9x-0Ey"/>
@@ -45,6 +52,7 @@
                     <navigationItem key="navigationItem" title="Invert Image Colors" id="QUR-7B-0Qd"/>
                     <connections>
                         <outlet property="imageView" destination="sBl-X4-UdC" id="33i-YC-am1"/>
+                        <outlet property="rotateImageButton" destination="xDw-nG-RwX" id="HWi-Fp-UA0"/>
                         <outlet property="saveNewImageButton" destination="B7M-NM-Ff3" id="3lO-84-Aro"/>
                     </connections>
                 </viewController>
