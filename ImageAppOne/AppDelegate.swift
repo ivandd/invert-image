@@ -1,6 +1,6 @@
 //
 //  AppDelegate.swift
-//  ImageAppOne
+//  Invert Image
 //
 //  Created by Ivan Davchev on 2/23/16.
 //  Copyright © 2016 Ivan Davchev. All rights reserved.
