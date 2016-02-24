@@ -5,7 +5,7 @@
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="9530"/>
     </dependencies>
     <scenes>
-        <!--Invert Image Colors Filter-->
+        <!--Invert Image Colors-->
         <scene sceneID="tne-QT-ifu">
             <objects>
                 <viewController id="BYZ-38-t0r" customClass="ViewController" customModule="ImageAppOne" customModuleProvider="target" sceneMemberID="viewController">
@@ -17,32 +17,16 @@
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleAspectFit" translatesAutoresizingMaskIntoConstraints="NO" id="gdk-71-OlO">
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="sBl-X4-UdC">
                                 <rect key="frame" x="0.0" y="64" width="600" height="492"/>
-                                <subviews>
-                                    <imageView multipleTouchEnabled="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="sVa-Xd-gMr">
-                                        <rect key="frame" x="0.0" y="0.0" width="600" height="492"/>
-                                        <color key="backgroundColor" red="0.40000000600000002" green="0.40000000600000002" blue="0.40000000600000002" alpha="1" colorSpace="calibratedRGB"/>
-                                        <constraints>
-                                            <constraint firstAttribute="height" constant="492" id="lWa-uY-tLn"/>
-                                        </constraints>
-                                    </imageView>
-                                </subviews>
-                                <color key="backgroundColor" red="0.29803922770000002" green="0.29803922770000002" blue="0.29803922770000002" alpha="1" colorSpace="calibratedRGB"/>
-                                <constraints>
-                                    <constraint firstItem="sVa-Xd-gMr" firstAttribute="trailing" secondItem="gdk-71-OlO" secondAttribute="trailing" id="Gzi-TY-1yM"/>
-                                    <constraint firstItem="sVa-Xd-gMr" firstAttribute="centerX" secondItem="gdk-71-OlO" secondAttribute="centerX" id="UL0-Rm-zsF"/>
-                                    <constraint firstItem="sVa-Xd-gMr" firstAttribute="bottom" secondItem="gdk-71-OlO" secondAttribute="bottom" id="g2b-m4-8b6"/>
-                                    <constraint firstItem="sVa-Xd-gMr" firstAttribute="top" secondItem="gdk-71-OlO" secondAttribute="top" id="qzz-L2-l2n"/>
-                                    <constraint firstItem="sVa-Xd-gMr" firstAttribute="leading" secondItem="gdk-71-OlO" secondAttribute="leading" id="sy9-N6-LbQ"/>
-                                </constraints>
-                            </scrollView>
+                                <color key="backgroundColor" red="0.40000000600000002" green="0.40000000600000002" blue="0.40000000600000002" alpha="1" colorSpace="calibratedRGB"/>
+                            </imageView>
                         </subviews>
                         <constraints>
-                            <constraint firstItem="gdk-71-OlO" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leading" id="Q1o-A8-GGg"/>
-                            <constraint firstItem="gdk-71-OlO" firstAttribute="top" secondItem="y3c-jy-aDJ" secondAttribute="bottom" id="fHC-cI-XVd"/>
-                            <constraint firstAttribute="trailing" secondItem="gdk-71-OlO" secondAttribute="trailing" id="gI5-gB-mX2"/>
-                            <constraint firstItem="gdk-71-OlO" firstAttribute="bottom" secondItem="wfy-db-euE" secondAttribute="top" id="lwT-2K-jH6"/>
+                            <constraint firstItem="sBl-X4-UdC" firstAttribute="bottom" secondItem="wfy-db-euE" secondAttribute="top" id="1aU-Qn-G9D"/>
+                            <constraint firstItem="sBl-X4-UdC" firstAttribute="top" secondItem="y3c-jy-aDJ" secondAttribute="bottom" id="JmR-dm-XRs"/>
+                            <constraint firstAttribute="trailing" secondItem="sBl-X4-UdC" secondAttribute="trailing" id="d3m-tD-ZcG"/>
+                            <constraint firstItem="sBl-X4-UdC" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leading" id="uu7-ij-t2N"/>
                         </constraints>
                     </view>
                     <toolbarItems>
@@ -58,17 +42,10 @@
                             </connections>
                         </barButtonItem>
                     </toolbarItems>
-                    <navigationItem key="navigationItem" title="Invert Image Colors Filter" id="QUR-7B-0Qd"/>
+                    <navigationItem key="navigationItem" title="Invert Image Colors" id="QUR-7B-0Qd"/>
                     <connections>
-                        <outlet property="imageConstraintBottom" destination="g2b-m4-8b6" id="oB0-Vw-vbz"/>
-                        <outlet property="imageConstraintLeft" destination="sy9-N6-LbQ" id="dwO-d7-gIt"/>
-                        <outlet property="imageConstraintRight" destination="Gzi-TY-1yM" id="9ey-o8-V5h"/>
-                        <outlet property="imageConstraintTop" destination="qzz-L2-l2n" id="dJe-hE-0tW"/>
-                        <outlet property="imageView" destination="sVa-Xd-gMr" id="zoM-tv-eos"/>
+                        <outlet property="imageView" destination="sBl-X4-UdC" id="33i-YC-am1"/>
                         <outlet property="saveNewImageButton" destination="B7M-NM-Ff3" id="3lO-84-Aro"/>
-                        <outlet property="scrollView" destination="gdk-71-OlO" id="am7-HX-z6m"/>
-                        <outlet property="scrollViewBottom" destination="lwT-2K-jH6" id="GPZ-Ui-HFb"/>
-                        <outlet property="scrollViewTop" destination="fHC-cI-XVd" id="RcD-JB-DHh"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>

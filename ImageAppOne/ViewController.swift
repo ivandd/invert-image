@@ -7,25 +7,15 @@
 //
 
 import UIKit
+import Photos
 
-class ViewController: UIViewController, UIScrollViewDelegate, UIImagePickerControllerDelegate, UINavigationControllerDelegate {
-
-    @IBOutlet weak var scrollView: UIScrollView!
+class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavigationControllerDelegate {
     
     @IBOutlet weak var imageView: UIImageView!
     
     // @IBOutlet weak var imageViewControllerz: UIImageView!
     
     @IBOutlet weak var saveNewImageButton: UIBarButtonItem!
-    
-    @IBOutlet weak var imageConstraintTop: NSLayoutConstraint!
-    @IBOutlet weak var scrollViewTop: NSLayoutConstraint!
-    @IBOutlet weak var imageConstraintRight: NSLayoutConstraint!
-    @IBOutlet weak var imageConstraintLeft: NSLayoutConstraint!
-    @IBOutlet weak var imageConstraintBottom: NSLayoutConstraint!
-    @IBOutlet weak var scrollViewBottom: NSLayoutConstraint!
-    
-    var lastZoomScale: CGFloat = -1
     
     let imagePicker = UIImagePickerController()
     
@@ -35,6 +25,7 @@ class ViewController: UIViewController, UIScrollViewDelegate, UIImagePickerContr
     @IBAction func openImage(sender: AnyObject) {
         imagePicker.allowsEditing = false
         imagePicker.sourceType = .PhotoLibrary
+        
         presentViewController(imagePicker, animated: true, completion: nil)
     }
     
@@ -90,13 +81,13 @@ class ViewController: UIViewController, UIScrollViewDelegate, UIImagePickerContr
     {
         let chosenImage = info[UIImagePickerControllerOriginalImage] as! UIImage //2
         
-        // reset the imageview to size of image
+/*        // reset the imageview to size of image
         let rect = CGRect(
             origin: CGPoint(x: 0, y: 0),
             size: chosenImage.size
         )
         imageView.bounds = rect
-
+*/
         imageView.contentMode = .ScaleAspectFit //3
         imageView.image = chosenImage //4
         print ("Picked an image")
@@ -106,86 +97,10 @@ class ViewController: UIViewController, UIScrollViewDelegate, UIImagePickerContr
         saveNewImageButton.enabled = true
     }
 
-    
-    func updateConstraints() {
-        if let image = imageView.image {
-            let imageWidth = image.size.width
-            let imageHeight = image.size.height
-            
-            let viewWidth = scrollView.bounds.size.width
-            let viewHeight = scrollView.bounds.size.height
-
-            print ("imageConstraintTop = \(imageConstraintTop.constant)")
-            print ("imageConstraintBottom = \(imageConstraintBottom.constant)")
-
-            print ("imageConstraintLeft = \(imageConstraintLeft.constant)")
-            print ("imageConstraintRight = \(imageConstraintRight.constant)")
-
-            // center image if it is smaller than the scroll view
-            var hPadding = (viewWidth - scrollView.zoomScale * imageWidth) / 2
-            if hPadding < 0 { hPadding = 0 }
-            print ("hPadding = \(hPadding)")
-            
-            var vPadding = (viewHeight - scrollView.zoomScale * imageHeight) / 2
-            if vPadding < 0 { vPadding = 0 }
-            print ("vPadding = \(vPadding)")
-            
-            imageConstraintLeft.constant = hPadding
-            imageConstraintRight.constant = hPadding
-            
-            imageConstraintTop.constant = vPadding
-            imageConstraintBottom.constant = vPadding
-
-            view.layoutIfNeeded()
-        
-            print ("Updated image constraints")
-        }
-    }
-    
-    // Zoom to show as much image as possible unless image is smaller than the scroll view
-    private func updateZoom() {
-        if let image = imageView.image {
-            print (scrollView.bounds.size.width)
-            print (image.size.width)
-            print (scrollView.bounds.size.height)
-            print (image.size.height)
-            
-            var minZoom = min(scrollView.bounds.size.width / image.size.width,
-                scrollView.bounds.size.height / image.size.height)
-            print ("minZoom = \(minZoom)")
-            
-            if minZoom > 1 { minZoom = 1 }
-            
-            scrollView.minimumZoomScale = minZoom
-            
-            // Force scrollViewDidZoom fire if zoom did not change
-            if minZoom == lastZoomScale { minZoom += 0.000001 }
-            print ("minZoom = \(minZoom)")
-            
-            // minZoom = 1
-            
-            scrollView.zoomScale = minZoom
-            lastZoomScale = minZoom
-            print ("Updated zoom to \(minZoom)")
-        }
-    }
-
-    
     override func viewDidAppear(animated: Bool) {
         super.viewDidAppear(animated)
-        
-        // imageView.image = UIImage(named: imageScrollLargeImageName)
-        scrollView.delegate = self
-        updateZoom()
     }
     
-    func scrollViewDidZoom(scrollView: UIScrollView) {
-        updateConstraints()
-    }
-    
-    func viewForZoomingInScrollView(scrollView: UIScrollView) -> UIView? {
-        return imageView
-    }
 
 }
 
