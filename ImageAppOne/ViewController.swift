@@ -89,7 +89,15 @@ class ViewController: UIViewController, UIScrollViewDelegate, UIImagePickerContr
         didFinishPickingMediaWithInfo info: [String : AnyObject])
     {
         let chosenImage = info[UIImagePickerControllerOriginalImage] as! UIImage //2
-        // imageView.contentMode = .ScaleAspectFit //3
+        
+        // reset the imageview to size of image
+        let rect = CGRect(
+            origin: CGPoint(x: 0, y: 0),
+            size: chosenImage.size
+        )
+        imageView.bounds = rect
+
+        imageView.contentMode = .ScaleAspectFit //3
         imageView.image = chosenImage //4
         print ("Picked an image")
         dismissViewControllerAnimated(true, completion: nil) //5
@@ -107,9 +115,12 @@ class ViewController: UIViewController, UIScrollViewDelegate, UIImagePickerContr
             let viewWidth = scrollView.bounds.size.width
             let viewHeight = scrollView.bounds.size.height
 
-            print ("scrollViewTop = \(scrollViewTop.constant)")
-            print ("scrollViewBottom = \(scrollViewBottom.constant)")
-            
+            print ("imageConstraintTop = \(imageConstraintTop.constant)")
+            print ("imageConstraintBottom = \(imageConstraintBottom.constant)")
+
+            print ("imageConstraintLeft = \(imageConstraintLeft.constant)")
+            print ("imageConstraintRight = \(imageConstraintRight.constant)")
+
             // center image if it is smaller than the scroll view
             var hPadding = (viewWidth - scrollView.zoomScale * imageWidth) / 2
             if hPadding < 0 { hPadding = 0 }
@@ -121,9 +132,6 @@ class ViewController: UIViewController, UIScrollViewDelegate, UIImagePickerContr
             
             imageConstraintLeft.constant = hPadding
             imageConstraintRight.constant = hPadding
-            
-            print ("scrollViewTop = \(scrollViewTop.constant)")
-            print ("scrollViewBottom = \(scrollViewBottom.constant)")
             
             imageConstraintTop.constant = vPadding
             imageConstraintBottom.constant = vPadding
@@ -154,7 +162,7 @@ class ViewController: UIViewController, UIScrollViewDelegate, UIImagePickerContr
             if minZoom == lastZoomScale { minZoom += 0.000001 }
             print ("minZoom = \(minZoom)")
             
-            minZoom = 1
+            // minZoom = 1
             
             scrollView.zoomScale = minZoom
             lastZoomScale = minZoom
